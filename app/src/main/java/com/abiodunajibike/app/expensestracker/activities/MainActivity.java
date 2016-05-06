@@ -1,9 +1,11 @@
-package com.abiodunajibike.app.expensestracker;
+package com.abiodunajibike.app.expensestracker.activities;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.abiodunajibike.app.expensestracker.R;
 
 
 public class MainActivity extends ActionBarActivity {
