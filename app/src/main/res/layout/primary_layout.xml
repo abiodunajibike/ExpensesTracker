@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <!--<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:textSize="15sp"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/my_name"
+        android:textColor="#000"
+        android:layout_below="@+id/textView"
+        android:textStyle="italic"/>-->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="280dp"
+        android:layout_height="450dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:id="@+id/textView"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/green"
+            android:text="@string/add_expense_header"
+            />
+
+        <EditText
+
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/description"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/amount"
+            android:layout_alignEnd="@+id/amount"
+            android:layout_marginTop="55dp"
+            android:hint="@string/description"
+            android:background="@drawable/edittext_bg"
+            android:gravity="center"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/amount"
+            android:hint="@string/amount"
+            android:background="@drawable/edittext_bg"
+            android:layout_below="@+id/description"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="55dp"
+            android:inputType="date"
+            android:id="@+id/datePicker"
+            android:hint="@string/date"
+            android:ems="10"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/amount"
+            android:layout_alignStart="@+id/amount"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/edittext_bg"
+
+            android:gravity="center"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add"
+            android:id="@+id/add_expense_btn"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:background="@drawable/orange_button"
+            android:allowUndo="false" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

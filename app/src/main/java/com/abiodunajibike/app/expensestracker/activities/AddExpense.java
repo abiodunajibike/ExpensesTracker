@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.DatePicker;
-import android.widget.EditText;
+import android.widget.TextView;
 
 import com.abiodunajibike.app.expensestracker.R;
 
@@ -20,7 +20,7 @@ import java.util.Locale;
 
 public class AddExpense extends Activity implements OnClickListener{
 
-    EditText datePicker;
+    TextView datePicker;
 
     private DatePickerDialog fromDatePickerDialog;
     private DatePickerDialog toDatePickerDialog;
@@ -30,11 +30,11 @@ public class AddExpense extends Activity implements OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_expense);
+        setContentView(R.layout.primary_layout);
 
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
-        datePicker = (EditText) findViewById(R.id.datePicker);
+        datePicker = (TextView) findViewById(R.id.datePicker);
         datePicker.setInputType(InputType.TYPE_NULL);
         datePicker.requestFocus();
 
