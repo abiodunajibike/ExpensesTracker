@@ -2,11 +2,15 @@ package com.abiodunajibike.app.expensestracker.helpers;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.abiodunajibike.app.expensestracker.Expense;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by AJ on 13/05/2016.
@@ -30,8 +34,8 @@ public class DatabaseController extends SQLiteOpenHelper {
 
     public static final String KEY_DATE = "date";
 
-    private static final String CREATE_TABLE_EXPENSES = "CREATE_TABLE "
-            + TABLE_EXPENSES + "(" + KEY_ID + " INTEGER PRIMARY AUTOINCREMENT,"
+    private static final String CREATE_TABLE_EXPENSES = "CREATE TABLE "
+            + TABLE_EXPENSES + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + KEY_DESCRIPTION + " TEXT," + KEY_AMOUNT + " DOUBLE," + KEY_DATE + " TEXT" + ")";
 
 
@@ -61,5 +65,27 @@ public class DatabaseController extends SQLiteOpenHelper {
         long expense_id  = db.insert(TABLE_EXPENSES, null, values);
         db.close();
         return expense_id;
+    }
+
+    public List getExpensesList(){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        List<String> expenses_list = new ArrayList<String>();
+        String selectQuery = "SELECT * FROM " + TABLE_EXPENSES;
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        try{
+            if (cursor.moveToFirst()) {
+
+                do{
+                    String info = cursor.getString(cursor.getColumnIndex(KEY_DESCRIPTION)) + " | " +
+                            ReUsableClasses.formatValue(cursor.getDouble(cursor.getColumnIndex(KEY_AMOUNT))) + " | " + cursor.getString(cursor.getColumnIndex(KEY_DATE));
+                    expenses_list.add(info);
+                }while (cursor.moveToNext());
+            }
+        }finally{
+            cursor.close();
+        }
+        return expenses_list;
     }
 }

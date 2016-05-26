@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +15,13 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.abiodunajibike.app.expensestracker.Expense;
 import com.abiodunajibike.app.expensestracker.R;
 import com.abiodunajibike.app.expensestracker.helpers.DatabaseController;
+import com.abiodunajibike.app.expensestracker.helpers.ReUsableClasses;
 
-import java.text.DecimalFormat;
 import java.util.Calendar;
 
 /**
@@ -29,12 +31,13 @@ public class AddExpenseFragment extends Fragment {
 
     private DatePickerDialog fromDatePickerDialog;
 
-    DatabaseController DBController = new DatabaseController(getActivity());
-
+    DatabaseController DBController;
 
     //@Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        DBController = new DatabaseController(getActivity());
+
         return inflater.inflate(R.layout.primary_layout, null);
     }
 
@@ -91,13 +94,17 @@ public class AddExpenseFragment extends Fragment {
 
                 try {
                     String givenstring = s.toString();
-                    Long longval;
+                    double doubleleVal;
                     if (givenstring.contains(",")) {
                         givenstring = givenstring.replaceAll(",", "");
                     }
-                    longval = Long.parseLong(givenstring);
+                    doubleleVal = Double.parseDouble(givenstring);
+                    /**
+                     * longval = Long.parseLong(givenstring);
                     DecimalFormat formatter = new DecimalFormat("#,###,###");
                     String formattedString = formatter.format(longval);
+                    **/
+                    String formattedString = ReUsableClasses.formatValue(doubleleVal);
                     amount.setText(formattedString);
                     amount.setSelection(amount.getText().length());
                     // to place the cursor at the end of text
@@ -128,17 +135,23 @@ public class AddExpenseFragment extends Fragment {
 
                 //Add expense
                 String description_text = description.getText().toString();
-                //double amount_val       = Double.parseDouble(amount.getText().toString());
+                String amount_string = amount.getText().toString();
+                double amount_val       = Double.parseDouble(amount_string.replaceAll(",", ""));
                 String date_text        = datePickerTextView.getText().toString();
 
-                //addExpense(description_text, amount_val, date_text);
+                if (TextUtils.isEmpty(description_text) || TextUtils.isEmpty(amount_string) || TextUtils.isEmpty(date_text)){
+                    Toast.makeText(getActivity().getApplicationContext(), getActivity().getApplicationContext().getString(R.string.add_expense_error), Toast.LENGTH_LONG).show();
+                }else{
+                    addExpense(description_text, amount_val, date_text);
 
-                //ExpensesListViewFragment nextFrag = new ExpensesListViewFragment();
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction
-                        .replace(R.id.containerView, new ExpensesListViewFragment())
-                        .addToBackStack(null)
-                        .commit();
+                    //ExpensesListViewFragment nextFrag = new ExpensesListViewFragment();
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    transaction
+                            .replace(R.id.containerView, new ExpensesListViewFragment())
+                            .addToBackStack(null)
+                            .commit();
+                }
+
             }
 
         });

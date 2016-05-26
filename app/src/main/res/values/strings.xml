@@ -16,4 +16,6 @@
     <string name="my_name">AJ</string>
 
     <string name="add">Add</string>
+
+    <string name="add_expense_error">Please complete all fields!</string>
 </resources>

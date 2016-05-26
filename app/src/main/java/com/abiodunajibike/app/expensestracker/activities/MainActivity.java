@@ -13,12 +13,12 @@ import com.abiodunajibike.app.expensestracker.R;
 import com.abiodunajibike.app.expensestracker.fragments.TabFragment;
 
 
-
 public class MainActivity extends AppCompatActivity{
     DrawerLayout mDrawerLayout;
     NavigationView mNavigationView;
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
+
 
 
     @Override
